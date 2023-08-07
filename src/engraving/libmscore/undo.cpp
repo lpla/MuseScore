@@ -2276,6 +2276,17 @@ void AddExcerpt::redo(EditData*)
     excerpt->masterScore()->addExcerpt(excerpt);
 }
 
+std::vector<const EngravingObject*> AddExcerpt::objectItems() const
+{
+    if (excerpt) {
+        if (const MasterScore* score = excerpt->masterScore()) {
+            return { score };
+        }
+    }
+
+    return {};
+}
+
 //---------------------------------------------------------
 //   RemoveExcerpt
 //---------------------------------------------------------
@@ -2312,6 +2323,17 @@ void RemoveExcerpt::redo(EditData*)
 {
     deleteExcerpt = true;
     excerpt->masterScore()->removeExcerpt(excerpt);
+}
+
+std::vector<const EngravingObject*> RemoveExcerpt::objectItems() const
+{
+    if (excerpt) {
+        if (const MasterScore* score = excerpt->masterScore()) {
+            return { score };
+        }
+    }
+
+    return {};
 }
 
 //---------------------------------------------------------
