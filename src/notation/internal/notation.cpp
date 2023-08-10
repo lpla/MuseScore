@@ -208,7 +208,8 @@ QString Notation::projectWorkTitleAndPartName() const
 
 bool Notation::isOpen() const
 {
-    return score()->isOpen();
+    const Score* s = score();
+    return s && s->isOpen();
 }
 
 void Notation::setIsOpen(bool open)
@@ -217,7 +218,12 @@ void Notation::setIsOpen(bool open)
         return;
     }
 
-    score()->setIsOpen(open);
+    Score* s = score();
+    IF_ASSERT_FAILED(s) {
+        return;
+    }
+
+    s->setIsOpen(open);
     m_openChanged.notify();
 }
 
