@@ -78,7 +78,9 @@ void RehearsalMark::applyTypeStyle()
 {
     const auto& elemStyleMap = (_type == Type::Main ? mainRehearsalMarkStyle : additionalRehearsalMarkStyle);
     for (const auto& elem : elemStyleMap) {
-        setProperty(elem.pid, score()->styleV(elem.sid));
+        if (propertyFlags(elem.pid) == PropertyFlags::STYLED) {
+            setProperty(elem.pid, score()->styleV(elem.sid));
+        }
     }
 }
 
