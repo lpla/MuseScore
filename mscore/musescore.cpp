@@ -7639,6 +7639,7 @@ MuseScoreApplication::CommandLineParseResult MuseScoreApplication::parseCommandL
             }
       if ((converterMode = parser.isSet("u"))) {
             MScore::noGui = true;
+            unrollRepeats = true;
             outFileName = parser.value("u");
             if (outFileName.isEmpty())
                   parser.showHelp(EXIT_FAILURE);
@@ -8401,9 +8402,8 @@ bool MuseScore::exportUnrolled(const QString& inFilePath)
 
       score = score->unrollRepeats();
 
-      QString outPath = inFilePath + QString(".unrolled.mscx");
-      QFileInfo fi(outPath);
-      bool rv = score->Score::saveFile(fi);
+      QString outPath = inFilePath + QString(".unrolled.musicxml");
+      bool rv = saveXml(score, outPath);
       delete score;
       return rv;
 }
